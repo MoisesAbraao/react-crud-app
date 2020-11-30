@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography
+} from '@material-ui/core';
+import Home from './components/Home';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppBar position="fixed" style={{background: '#7A889D'}}>
+          <Toolbar>
+              <Typography variant="h6">
+                  Task Manager
+              </Typography>
+          </Toolbar>
+      </AppBar>
+
+      <Box mt={10} />
+      
+      <Home />
+    </>
   );
 }
 
