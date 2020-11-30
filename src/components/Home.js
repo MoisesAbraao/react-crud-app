@@ -54,7 +54,9 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
     const classes = useStyles();
     const [data, setData] = useState([]);
-    const [detailsTask, setDetailsTask] = useState(null);
+    const [title, setTitle] = useState();
+    const [details, setDetails] = useState();
+    const [detailsTask, setDetailsTask] = useState([]);
     const [openNewTask, setOpenNewTask] = useState(false);
     const [openUpdateTask, setOpenUpdateTask] = useState(false);
     const [openDeleteValidation, setOpenDeleteValidation] = useState(false);
@@ -89,12 +91,22 @@ function Home() {
         setOpenUpdateTask(false);
     }
 
-    const updateItem = (id) => {
-        api.put(`tasks/${id}`)
-            // setData(data.map(item => (item.id === id ? updateItem : item)))
+    const updateItem = () => {
+        let params = {
+            title: title, 
+            details: details
+        };
+
+        api.put(`tasks/${item}`, params).then((result) => {
+            // if (result.status === 201) {
+                loadData();
+            // }
+        });
     
         setOpenUpdateTask(false);
-      }
+    }
+    
+
     
     async function deleteTask(item) {
         setItem(item);
@@ -206,17 +218,17 @@ function Home() {
                                     id="title"
                                     label="Title"
                                     value={detailsTask.title}
-                                    onChange={(e) => setDetailsTask(e.target.value)}
+                                    onChange={(e) => setTitle(e.target.value)}
                                     fullWidth
                                 />
-                                {/* <TextField
+                                <TextField
                                     margin="dense"
                                     id="details"
                                     label="Details"
                                     value={detailsTask.details}
-                                    onChange={(e) => setDetailsTask(e.target.value)}
+                                    onChange={(e) => setDetails(e.target.value)}
                                     fullWidth
-                                /> */}
+                                />
                             </form>
                         </DialogContent>
                     
@@ -224,9 +236,9 @@ function Home() {
                             <Button onClick={updateItem} color="primary">
                                 SAVE
                             </Button>
-                            {/* <Button onClick={handleCloseUpdateTask} color="secondary">
+                            <Button onClick={handleCloseUpdateTask} color="secondary">
                                 CANCEL
-                            </Button> */}
+                            </Button>
                         </DialogActions>
                     </>
                 )}
