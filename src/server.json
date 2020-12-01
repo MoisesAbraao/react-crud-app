@@ -1,13 +1,28 @@
 {
   "tasks": [
     {
-      "title": "Task 1w",
-      "details": "erwerwe",
+      "title": "Lavar a louça",
+      "details": "até as panelas!",
       "id": 1
     },
     {
-      "title": "Fazer cocoer",
-      "details": null,
+      "title": "Passear com o cachorro",
+      "details": "Não esquecer a coleira!",
+      "id": 2
+    },
+    {
+      "title": "Limpar o quarto",
+      "details": "Dobrar os lençóis!",
+      "id": 3
+    },
+    {
+      "title": "Comprar a água",
+      "details": "Usar o dinheiro que está na gaveta!",
+      "id": 4
+    },
+    {
+      "title": "Enviar o projeto",
+      "details": "Não estourar o prazo!",
       "id": 2
     }
   ]

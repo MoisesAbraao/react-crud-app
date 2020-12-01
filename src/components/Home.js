@@ -62,6 +62,8 @@ function Home() {
     const [openDeleteValidation, setOpenDeleteValidation] = useState(false);
     const [item, setItem] = useState({});
     const [openAlertSuccess, setOpenAlertSuccess] = useState(false);
+    const [openAlertUpdateSuccess, setOpenAlertUpdateSuccess] = useState(false);
+    const [openAlertUpdateError, setOpenAlertUpdateError] = useState(false);
 
     async function loadData(){
         try{
@@ -83,6 +85,8 @@ function Home() {
     
     const handleOpenUpdateTask = (item) => {
         setDetailsTask(item);
+        setTitle(item.title);
+        setDetails(item.details);
         setOpenUpdateTask(true);
     }
 
@@ -98,17 +102,16 @@ function Home() {
             title: title, 
             details: details
         };
-        if (title !== undefined) {
+        if (title !== '') {
             api.put(`/tasks/${id}`, params).then((result) => {
                 if (result.status === 200) {
                     loadData();
-                    setTitle(null);
-                    setDetails(null);
+                    setOpenAlertUpdateSuccess(true);
                 };
             });
             setOpenUpdateTask(false);
         }else {
-            alert('Deu Pau');
+            setOpenAlertUpdateError(true);
         }
     }
     
@@ -137,6 +140,8 @@ function Home() {
         }
     
         setOpenAlertSuccess(false);
+        setOpenAlertUpdateSuccess(false);
+        setOpenAlertUpdateError(false);
     };
 
     return (
@@ -223,7 +228,7 @@ function Home() {
                                     margin="dense"
                                     id="title"
                                     label="Title"
-                                    value={detailsTask.title}
+                                    value={title}
                                     onChange={(e) => setTitle(e.target.value)}
                                     fullWidth
                                 />
@@ -231,7 +236,7 @@ function Home() {
                                     margin="dense"
                                     id="details"
                                     label="Details"
-                                    value={detailsTask.details}
+                                    value={details}
                                     onChange={(e) => setDetails(e.target.value)}
                                     fullWidth
                                 />
@@ -261,6 +266,18 @@ function Home() {
                 handleCloseDeleteValidation={handleCloseDeleteValidation} 
                 handleDelete={handleDelete} 
             />
+
+        <Snackbar open={openAlertUpdateSuccess} autoHideDuration={6000} onClose={handleClose}>
+            <MuiAlert onClose={handleClose} severity="success">
+                Task updated successfully!
+            </MuiAlert>
+        </Snackbar>
+
+        <Snackbar open={openAlertUpdateError} autoHideDuration={6000} onClose={handleClose}>
+            <MuiAlert onClose={handleClose} severity="error">
+                Check the fields!
+            </MuiAlert>
+        </Snackbar>
 
         <Snackbar open={openAlertSuccess} autoHideDuration={6000} onClose={handleClose}>
             <MuiAlert onClose={handleClose} severity="success">
