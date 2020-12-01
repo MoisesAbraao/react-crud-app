@@ -1,19 +1,14 @@
 {
   "tasks": [
     {
-      "title": "Task 1",
-      "details": "aslkdjlkasjdlkas",
+      "title": "Task 1w",
+      "details": "erwerwe",
       "id": 1
     },
     {
-      "title": "Fazer alguma Coisa",
-      "details": "Preciso limpar a casa",
+      "title": "Fazer cocoer",
+      "details": null,
       "id": 2
-    },
-    {
-      "title": "title",
-      "details": "details",
-      "id": 3
     }
   ]
 }

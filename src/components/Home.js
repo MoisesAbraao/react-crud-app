@@ -66,8 +66,8 @@ function Home() {
     async function loadData(){
         try{
             const response = await api.get(`/tasks`);
-            const formattedData = response.data.sort((a, b) => (a.id < b.id) ? 1 : -1);
-            setData(formattedData || []);
+            const orderData = response.data.sort((a, b) => (a.id < b.id) ? 1 : -1);
+            setData(orderData || []);
         }catch (error) {
             console.log(error);
         }
@@ -82,7 +82,7 @@ function Home() {
     }
     
     const handleOpenUpdateTask = (item) => {
-        setDetailsTask(item)
+        setDetailsTask(item);
         setOpenUpdateTask(true);
     }
 
@@ -91,19 +91,25 @@ function Home() {
         setOpenUpdateTask(false);
     }
 
-    const updateItem = () => {
+    const updateItem = () => { 
+        let id = detailsTask.id;
+
         let params = {
             title: title, 
             details: details
         };
-
-        api.put(`tasks/${item}`, params).then((result) => {
-            // if (result.status === 201) {
-                loadData();
-            // }
-        });
-    
-        setOpenUpdateTask(false);
+        if (title !== undefined) {
+            api.put(`/tasks/${id}`, params).then((result) => {
+                if (result.status === 200) {
+                    loadData();
+                    setTitle(null);
+                    setDetails(null);
+                };
+            });
+            setOpenUpdateTask(false);
+        }else {
+            alert('Deu Pau');
+        }
     }
     
 
